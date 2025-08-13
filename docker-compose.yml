@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - "4000:4000"
+      - "5173:5173"
+    environment:
+      - PORT=4000
+    volumes:
+      - ./server:/app/server
+      - ./client:/app/client
+    command: sh -c "(cd server && npm i && node src/index.js) & (cd client && npm i && npm run dev -- --host) && wait"
